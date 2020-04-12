@@ -13,7 +13,6 @@ class Local(models.Model):
     criado_em = models.DateTimeField("data de criação", editable=False)
     editado_em = models.DateTimeField("última atualização", null=True, blank=True)
 
-
     class Meta:
         ordering = ('logradouro',)
         verbose_name = 'local'
