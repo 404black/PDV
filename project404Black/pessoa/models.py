@@ -12,7 +12,6 @@ class Pessoa(models.Model):
     local = models.OneToOneField(Local, verbose_name="endereço", on_delete=models.CASCADE,
     null=True, blank=True)
 
-
     class Meta:
         abstract = False
 
