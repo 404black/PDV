@@ -3,7 +3,7 @@ from django.utils import timezone
 from local.models import Local
 
 class Pessoa(models.Model):
-    nome = models.CharField("nome", max_length=50, null=True, blank=True)
+    nome = models.CharField("nome", max_length=51, null=True, blank=True)
     cnpj = models.CharField("CNPJ", unique=True, db_index=True, max_length=15, null=True, blank=True)
     cpf = models.CharField("CPF", unique=True, db_index=True, max_length=15, null=True, blank=True)
     data_nascimento = models.DateField('data de nascimento', null=True, blank=True)
@@ -15,13 +15,13 @@ class Pessoa(models.Model):
     class Meta:
         abstract = True
 
-    def _str_(self):
+    def __str__(self):
         if self.nome:
             return self.nome
         return str(self.id)
 
     def get_endereco(self):
-        return self.local._str_()
+        return self.local.__str__()
 
 class Cliente(Pessoa):
     data_cadastro = models.DateField('Data de Cadastro')
