@@ -17,10 +17,12 @@ class Local(models.Model):
         ordering = ('logradouro',)
         verbose_name = 'local'
         verbose_name_plural = 'locais'
-    def _str_(self):
+        
+    def __str__(self):
         if self.logradouro and self.numero:
             return self.logradouro + ', ' + self.numero
         return str(self.id)
+        
     def save(self, *args, **kwargs):
         if not self.criado_em:
             self.criado_em = timezone.now()
