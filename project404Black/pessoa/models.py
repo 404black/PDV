@@ -18,7 +18,7 @@ class Pessoa(models.Model):
     celular = models.CharField("celular", max_length=14, null=True, blank=True)
     local = models.OneToOneField(Local, verbose_name="endereço", on_delete=models.CASCADE,
     null=True, blank=True)
-    _sexo = models.PositiveIntegerField("tipo de mascote", choices=SEXO,default=MASCULINO)
+    _sexo = models.PositiveIntegerField("sexo", choices=SEXO,default=MASCULINO)
 
     class Meta:
         abstract = True
