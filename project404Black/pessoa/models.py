@@ -2,6 +2,14 @@ from django.db import models
 from django.utils import timezone
 from local.models import Local
 
+MASCULINO = 1
+FEMININO = 2
+
+SEXO = [
+(1, 'MASCULINO'),
+(2, 'FEMININO'),
+]
+
 class Pessoa(models.Model):
     nome = models.CharField("nome", max_length=51, null=True, blank=True)
     cnpj = models.CharField("CNPJ", unique=True, db_index=True, max_length=15, null=True, blank=True)
@@ -10,7 +18,7 @@ class Pessoa(models.Model):
     celular = models.CharField("celular", max_length=14, null=True, blank=True)
     local = models.OneToOneField(Local, verbose_name="endereço", on_delete=models.CASCADE,
     null=True, blank=True)
-    sexo = models.CharField("sexo", max_length=10, null=True, blank=True)
+    _sexo = models.PositiveIntegerField("tipo de mascote", choices=SEXO,default=MASCULINO)
 
     class Meta:
         abstract = True
@@ -22,6 +30,22 @@ class Pessoa(models.Model):
 
     def get_endereco(self):
         return self.local.__str__()
+
+    @property
+    def sexo(self):
+        for code, label in SEXO:
+            if self._sexo == code:
+                break
+        return label
+        
+    @sexo.setter
+    def sexo(self, sexo):
+        if sexo == 'Masculino':
+            self._sexo = MASCULINO
+        elif valor == 'Feminino':
+            self._sexo = FEMININO
+        else:
+            raise valueError('Escolha entre: Masculino ou Feminino')
 
 class Cliente(Pessoa):
     data_cadastro = models.DateField('Data de Cadastro')
