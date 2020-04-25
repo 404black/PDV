@@ -13,6 +13,6 @@ class ItemVenda(models.Model):
         verbose_name_plural = 'itens de vendas'
         
     def __str__(self):
-        if self.produto.descricao:
+        if self.produto:
             return 'Produto: ' +  self.produto.descricao 
         return str(self.id)
