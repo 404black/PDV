@@ -16,8 +16,7 @@ class Pessoa(models.Model):
     cpf = models.CharField("CPF", unique=True, db_index=True, max_length=15, null=True, blank=True)
     data_nascimento = models.DateField('data de nascimento', null=True, blank=True)
     celular = models.CharField("celular", max_length=14, null=True, blank=True)
-    local = models.OneToOneField(Local, verbose_name="endereço", on_delete=models.CASCADE,
-    null=True, blank=True)
+    local = models.OneToOneField(Local, verbose_name="endereço", on_delete=models.CASCADE,null=True, blank=True)
     _sexo = models.PositiveIntegerField("sexo", choices=SEXO,default=MASCULINO)
 
     class Meta:
@@ -28,7 +27,8 @@ class Pessoa(models.Model):
             return self.nome
         return str(self.id)
 
-    def get_endereco(self):
+    @property
+    def endereco_completo(self):
         return self.local.__str__()
 
     @property
@@ -42,7 +42,7 @@ class Pessoa(models.Model):
     def sexo(self, sexo):
         if sexo == 'Masculino':
             self._sexo = MASCULINO
-        elif valor == 'Feminino':
+        elif sexo == 'Feminino':
             self._sexo = FEMININO
         else:
             raise valueError('Escolha entre: Masculino ou Feminino')
