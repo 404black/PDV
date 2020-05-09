@@ -47,6 +47,10 @@ class Pessoa(models.Model):
         else:
             raise valueError('Escolha entre: Masculino ou Feminino')
 
+    def get_type_documents(self):
+        print("Pessoa possui CPF E CNPJ")
+        return 'Pessoa possui CPF ou CNPJ'
+
 class Cliente(Pessoa):
     data_cadastro = models.DateField('Data de Cadastro')
     
@@ -57,6 +61,10 @@ class Cliente(Pessoa):
     # vamos sobreescrever o método __str__() usando herança
     def __str__(self):
         return super().__str__()
+
+    def get_type_documents(self):
+        print("Cliente possui CPF E CNPJ")
+        return 'Cliente possui CPF ou CNPJ'
 
 class Fornecedor(Pessoa):
     data_cadastro = models.DateField('Data de Cadastro')
@@ -69,6 +77,10 @@ class Fornecedor(Pessoa):
     # vamos sobreescrever o método __str__() usando herança
     def __str__(self):
         return super().__str__()
+
+    def get_type_documents(self):
+        print("Fornecedor possui CNPJ")
+        return 'Fornecedor possui CNPJ'
 
 class Funcionario(Pessoa):
     data_entrada = models.DateField('Data de Entrada', null=True,blank=True)
@@ -85,3 +97,6 @@ class Funcionario(Pessoa):
     # vamos sobreescrever o método __str__() usando herança
     def __str__(self):
         return super().__str__()
+
+    def get_type_documents(self):
+        return 'Funcionario possui CPF apenas'
