@@ -8,6 +8,12 @@ class ItemCompra(models.Model):
     produto = models.ForeignKey(Produto, verbose_name="produto", on_delete=models.CASCADE)
     compra = models.ForeignKey(Compra, verbose_name="compra", on_delete=models.CASCADE)
 
+    def get_produto(self, calcular=False):
+        if calcular:
+            return self.produto.descricao + " no valor de: " + self.qtd_item * self.valor_item
+        return self.produto.descricao 
+    
+
     def __str__(self):
         if self.produto:
             return 'Produto: ' +  self.produto.descricao 

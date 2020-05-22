@@ -27,9 +27,9 @@ class Pessoa(models.Model):
             return self.nome
         return str(self.id)
 
-    @property
-    def endereco_completo(self):
-        return self.local.__str__()
+    
+    def get_endereco_completo(self, ps="brasil"):
+        return self.local.__str__() + ", Moro no país "  + ps
 
     @property
     def sexo(self):
@@ -61,6 +61,9 @@ class Cliente(Pessoa):
     # vamos sobreescrever o método __str__() usando herança
     def __str__(self):
         return super().__str__()
+
+    def get_cpf(self):
+        return self.cpf
 
     def get_type_documents(self):
         print("Cliente possui CPF E CNPJ")
@@ -100,3 +103,13 @@ class Funcionario(Pessoa):
 
     def get_type_documents(self):
         return 'Funcionario possui CPF apenas'
+
+    def get_cpf(self):
+        return self.cpf
+
+def get_cpf(self):
+    try:
+       return self.get_cpf
+    except AttributeError as e:
+        print("Nao possui cpf")
+
