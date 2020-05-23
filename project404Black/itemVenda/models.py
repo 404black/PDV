@@ -12,6 +12,11 @@ class ItemVenda(models.Model):
         verbose_name = 'item de venda'
         verbose_name_plural = 'itens de vendas'
         
+    def get_produto(self, calcular=False):
+        if calcular:
+            return self.produto.descricao + " no valor de: " + self.qtd_item * self.valor_item
+        return self.produto.descricao 
+
     def __str__(self):
         if self.produto:
             return 'Produto: ' +  self.produto.descricao 
